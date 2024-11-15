@@ -2,16 +2,19 @@ from fastapi import FastAPI, HTTPException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.chrome.service import Service
 
 app = FastAPI()
 
 # ChromeDriver configuration
 def configure_driver():
+
+    service = Service('/usr/local/bin/chromedriver')
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')  # Required for running as root
     options.add_argument('--disable-dev-shm-usage')  # Prevent shared memory issues
     # Do not use '--headless' if you need to interact with the browser visually
-    return webdriver.Chrome(options=options)
+    return webdriver.Chrome(service=service, options=options)
 
 @app.get("/open-google")
 async def open_google():
