@@ -22,6 +22,7 @@ def configure_driver(environment='production'):
     options.add_argument('--no-sandbox')  # Required for running as root
     options.add_argument('--disable-dev-shm-usage')  # Prevent shared memory issues
     options.add_argument('--window-size=1920,1080')
+    options.add_argument('--remote-debugging-port=9222')
     options.binary_location = os.getenv('GOOGLE_CHROME_BIN', '/usr/bin/chromium')
     service = Service(ChromeDriverManager().install())
     
