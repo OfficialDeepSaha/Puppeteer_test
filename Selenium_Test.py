@@ -27,6 +27,12 @@ def configure_driver(environment='production'):
     
     return webdriver.Chrome(service=service, options=options)
 
+@app.get("/")
+def read_root():
+    return {"message": "Twitter Selenium Running !!"}
+
+
+
 @app.get("/open-google")
 async def open_google():
     """
