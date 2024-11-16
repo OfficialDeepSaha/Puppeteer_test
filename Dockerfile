@@ -20,9 +20,13 @@ RUN wget -q https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.
     unzip /tmp/chromedriver-linux64.zip -d /usr/local/bin/ && \
     rm /tmp/chromedriver-linux64.zip
 
-# Install the required Python dependencies
-COPY requirements.txt /app/
+# Copy the entire project into the container (including main.py)
+COPY . /app/
+
+# Set the working directory to /app
 WORKDIR /app
+
+# Install the required Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set up environment variables for Chrome
