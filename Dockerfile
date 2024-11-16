@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
     libgdk-pixbuf2.0-0 \
     libnss3 \
     libx11-xcb1 \
-    libx264-155 \
     libfontconfig1 \
     libxrender1 \
     libgtk-3-0 \
@@ -35,4 +34,3 @@ EXPOSE 8000
 
 # Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
