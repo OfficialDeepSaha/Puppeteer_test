@@ -3,18 +3,26 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import os
 
 app = FastAPI()
 
 # ChromeDriver configuration
-def configure_driver():
+def configure_driver(environment='production'):
 
-    service = Service('/usr/local/bin/chromedriver')
+    service = Service(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
+    
+    if environment != 'production':
+       options.add_argument('--headless')
+
+    
+    # Add common options
     options.add_argument('--no-sandbox')  # Required for running as root
     options.add_argument('--disable-dev-shm-usage')  # Prevent shared memory issues
-    # Do not use '--headless' if you need to interact with the browser visually
+    options.add_argument('--window-size=1920,1080')
+    
     return webdriver.Chrome(service=service, options=options)
 
 @app.get("/open-google")
@@ -23,17 +31,18 @@ async def open_google():
     Endpoint to open Google's homepage using Selenium.
     """
     
-    os.environ["DISPLAY"] = ":1"
-    driver = configure_driver()
+    environment = 'production'
+    
+    driver = configure_driver(environment=environment)
 
     try:
-        driver.get("https://www.google.com")
+        driver.get("https://x.com")
         
         # Verifying that the page has loaded correctly
         if "Google" not in driver.title:
             raise HTTPException(status_code=500, detail="Failed to open Google or incorrect title")
 
-        return {"message": "Google opened successfully!", "title": driver.title}
+        return {"message": "Twitter opened successfully!", "title": driver.title}
     except WebDriverException as e:
         raise HTTPException(status_code=500, detail=f"Error occurred while using Selenium: {str(e)}")
     finally:
