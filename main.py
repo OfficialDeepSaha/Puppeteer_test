@@ -26,7 +26,7 @@ def configure_driver(environment='production'):
     options.binary_location = os.getenv('GOOGLE_CHROME_BIN', '/usr/bin/chromium')
     service = Service(ChromeDriverManager().install())
     
-    return webdriver.Chrome(service=service, options=options)
+    return webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
 
 @app.get("/")
 def read_root():
