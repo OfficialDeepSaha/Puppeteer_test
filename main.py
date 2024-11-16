@@ -23,7 +23,7 @@ def configure_driver(environment='production'):
     options.add_argument('--disable-dev-shm-usage')  # Prevent shared memory issues
     options.add_argument('--window-size=1920,1080')
     options.binary_location = os.getenv('GOOGLE_CHROME_BIN', '/usr/bin/chromium')
-    service = Service(os.getenv('CHROMEDRIVER_PATH', '/usr/local/bin/chromedriver'))
+    service = Service(ChromeDriverManager().install())
     
     return webdriver.Chrome(service=service, options=options)
 
