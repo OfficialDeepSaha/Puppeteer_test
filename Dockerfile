@@ -33,6 +33,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 ENV GOOGLE_CHROME_BIN=/usr/bin/chromium
 ENV CHROMEDRIVER_PATH=/usr/local/bin/chromedriver
 
+RUN chmod +x /usr/local/bin/chromedriver
+RUN chmod +x /usr/bin/chromium
+
 # Expose port for FastAPI
 EXPOSE 8000
 
