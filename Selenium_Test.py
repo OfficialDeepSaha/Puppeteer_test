@@ -11,7 +11,7 @@ app = FastAPI()
 # ChromeDriver configuration
 def configure_driver(environment='production'):
 
-    service = Service(ChromeDriverManager().install())
+    # service = Service(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
     
     if environment != 'production':
@@ -22,7 +22,8 @@ def configure_driver(environment='production'):
     options.add_argument('--no-sandbox')  # Required for running as root
     options.add_argument('--disable-dev-shm-usage')  # Prevent shared memory issues
     options.add_argument('--window-size=1920,1080')
-    options.binary_location= '/usr/bin/chromium'
+    options.binary_location = os.getenv('GOOGLE_CHROME_BIN', '/usr/bin/chromium')
+    service = Service(os.getenv('CHROMEDRIVER_PATH', '/usr/local/bin/chromedriver'))
     
     return webdriver.Chrome(service=service, options=options)
 
