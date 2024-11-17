@@ -30,7 +30,7 @@ def configure_driver(environment='production'):
 
 @app.get("/")
 def read_root():
-    return {"message": "Twitter Selenium Running !!"}
+    return {"message": "Google Selenium Running !!"}
 
 
 
