@@ -45,13 +45,13 @@ async def open_google():
     driver = configure_driver(environment=environment)
 
     try:
-        driver.get("https://x.com")
+        driver.get("https://google.com")
         
         # Verifying that the page has loaded correctly
         if "Google" not in driver.title:
             raise HTTPException(status_code=500, detail="Failed to open Google or incorrect title")
 
-        return {"message": "Twitter opened successfully!", "title": driver.title}
+        return {"message": "Google opened successfully!", "title": driver.title}
     except WebDriverException as e:
         raise HTTPException(status_code=500, detail=f"Error occurred while using Selenium: {str(e)}")
     finally:
