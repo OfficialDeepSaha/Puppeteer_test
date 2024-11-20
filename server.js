@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+require("dotenv").config();
 
 const startTwitterAuthProcess = async () => {
   const browser = await puppeteer.launch({
