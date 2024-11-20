@@ -5,7 +5,16 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /usr/src/app
 
+# Copy package files
 COPY package*.json ./
+
+# Set proper permissions
+USER root
+RUN chmod -R 777 /usr/src/app
 RUN npm install
+USER pptruser
+
+# Copy the rest of the application code
 COPY . .
-CMD [ "node", "server.js" ]
+
+CMD ["node", "server.js"]
